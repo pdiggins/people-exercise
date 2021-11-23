@@ -11,6 +11,7 @@ const people: Person[] = [
     phone: "6151234567",
     firstName: "Ann",
     lastName: "Anderson",
+    note: '',
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ const people: Person[] = [
     phone: "6157894561",
     firstName: "Bob",
     lastName: "Benson",
+    note: '',
   },
 ];
 
@@ -42,8 +44,9 @@ export const retrievePeople = async () => {
 
 export const updatePerson = async (person: Person) => {
   await sleep(1500);
-  const p = people.find((p) => p.id === person.id);
-  if (!p) return Promise.reject("user does not exist");
+  const index = people.findIndex((p) => p.id === person.id);
+  if (index < 0) return Promise.reject("user does not exist");
+  people[index] = person;
   return Promise.resolve(person);
 };
 
